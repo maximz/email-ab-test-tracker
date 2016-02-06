@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<body>
+<h1>Status</h1>
+{% for (exp, count) in exps %}
+  <p>{{ exp }}: {{ count }} users. <a href="{{ url_for('report', name=exp) }}">Report</a> ; <a href="{{ url_for('csv', name=exp) }}">CSV</a></p>
+{% endfor %}
+<h1><a href="{{ url_for('create') }}">Make new</a></h1>
+</body>
+</html>

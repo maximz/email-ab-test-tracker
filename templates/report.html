@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<body>
+<h1>Experiment {{exp_name }}</h1>
+{% for rec in records %}
+  <p>{{ rec }}</p>
+{% endfor %}
+<h1><a href="{{ url_for('summary') }}">Back to summary</a></h1>
+</body>
+</html>
