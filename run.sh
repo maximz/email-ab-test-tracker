@@ -1,0 +1,1 @@
+docker run --name maximz-tracker -e "ADMIN_PASSWORD=maximpassword" -p 3180:80 -d maximz/tracker:latest;
