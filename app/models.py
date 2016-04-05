@@ -28,3 +28,18 @@ class Record(db.Model):
 
     def csv(self):
         return '%s,%s,%s,%d' % (uuid2slug(self.uuid), self.experiment_name, self.user_id, 1 if self.marked else 0)
+
+
+class Pixel(db.Model):
+    __tablename__ = 'pixel'
+    id = db.Column(db.Integer, primary_key = True)
+    site = db.Column(db.String)
+    username = db.Column(db.String)
+    timestamp = db.Column(db.DateTime)
+    def __init__(self, site, username, timestamp):
+        self.site = site
+        self.username = username
+        self.timestamp = timestamp
+
+    def csv(self):
+        return '%s,%s,%s' % (self.site, self.username, self.timestamp)

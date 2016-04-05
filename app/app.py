@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.basicauth import BasicAuth
 import os
 import uuid
+import datetime
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -24,6 +25,15 @@ def mark(uid):
 	record.marked = True
 	db.session.commit()
 	return 'Response recorded'
+
+@app.route('/pixel/<site>/<uname>/pixel.png')
+def pixel(site, uname):
+	""" tracking pixel """
+	pixel = Pixel(site, uname, datetime.datetime.utcnow())
+	db.session.add(pixel)
+	db.session.commit()
+	return '', 204
+
 
 @app.route('/admin')
 @basic_auth.required
@@ -60,6 +70,17 @@ def csv(name):
 	records = Record.query.filter_by(experiment_name=name).order_by(Record.marked).all()
 	return '<br/>'.join([r.csv() for r in records])
 
+@app.route('/admin/pixel/all')
+@basic_auth.required
+def get_sites():
+	query = db.session.query(Pixel.site.distinct().label("site"))
+	return '<br/>'.join([row.site for row in query.all()])
+
+@app.route('/admin/pixel/get/<name>')
+@basic_auth.required
+def get_site(name):
+	records = Pixel.query.filter_by(site=name).order_by(Pixel.timestamp).all()
+	return '<br/>'.join([r.csv() for r in records])
 
 
 @app.route('/status')

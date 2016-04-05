@@ -9,7 +9,7 @@ workdir /home/docker/code/app
 volume /home/docker/code/app/data
 
 # need environment vars for this
-env APP_SETTINGS="config.ProductionConfig"
+env APP_SETTINGS="config.DevelopmentConfig"
 env DATABASE_URL="sqlite:///data.db"
 #run python manage.py db init
 run python manage.py db migrate

@@ -1,10 +1,16 @@
 <!doctype html>
 <html>
 <body>
-<h1>Status</h1>
+<h1>Unsub links</h1>
+<h2>Status</h2>
 {% for (exp, count) in exps %}
   <p>{{ exp }}: {{ count }} users. <a href="{{ url_for('report', name=exp) }}">Report</a> ; <a href="{{ url_for('csv', name=exp) }}">CSV</a></p>
 {% endfor %}
-<h1><a href="{{ url_for('create') }}">Make new</a></h1>
+<h2><a href="{{ url_for('create') }}">Make new</a></h2>
+
+<h1>Tracking pixels</h1>
+<p>Format example: {{ url_for('pixel', site='sitename', uname='username')}} </p>
+<h2><a href="{{ url_for('get_sites') }} ">To see all site names</a></h2>
+<h2><a href="{{ url_for('get_site', name='test') }} ">To get individual site data (example)</a></h2>
 </body>
 </html>
